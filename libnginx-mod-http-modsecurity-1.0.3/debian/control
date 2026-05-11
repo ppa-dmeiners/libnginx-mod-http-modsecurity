@@ -1,0 +1,26 @@
+Source: libnginx-mod-http-modsecurity
+Section: httpd
+Priority: optional
+Maintainer: Ervin Hegedus <airween@gmail.com>
+Uploaders: Alberto Gonzalez Iniesta <agi@inittab.org>
+Build-Depends: debhelper-compat (= 13),
+               libmodsecurity-dev,
+               libnginx-mod-http-ndk-dev,
+               dh-sequence-nginx
+Standards-Version: 4.6.1
+Homepage: https://github.com/SpiderLabs/ModSecurity-nginx
+Vcs-Git: https://salsa.debian.org/modsecurity-packaging-team/libnginx-mod-http-modsecurity.git
+Vcs-Browser: https://salsa.debian.org/modsecurity-packaging-team/libnginx-mod-http-modsecurity
+Rules-Requires-Root: no
+
+Package: libnginx-mod-http-modsecurity
+Architecture: any
+Depends: libmodsecurity-dev,
+         ${misc:Depends},
+         ${shlibs:Depends}
+Recommends: nginx,modsecurity-crs
+Description: WAF module for Nginx
+ The ModSecurity-nginx connector is the connection point between nginx and
+ libmodsecurity (ModSecurity v3). Said another way, this project provides a
+ communication channel between nginx and libmodsecurity. This connector is
+ required to use LibModSecurity with nginx.

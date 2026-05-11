@@ -1,0 +1,6 @@
+debian/modsecurity_config_files/* usr/share/nginx/docs/modsecurity
+debian/mod-http-modsecurity.conf usr/share/nginx/modules-available/
+debian/modsecurity_config_files/default-modsecurity.conf etc/nginx/sites-available/
+debian/modsecurity_config_files/modsecurity.conf etc/nginx/
+debian/modsecurity_config_files/modsecurity_includes.conf etc/nginx/
+debian/modsecurity_config_files/unicode.mapping etc/nginx/

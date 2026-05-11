@@ -1,0 +1,127 @@
+Debian nginx ModSecurity HOWTO
+2022 - Ervin Hegedus <airween@digitalwave.hu>, <airween@gmail.com>
+
+This module provides the WAF (Web Application Firewall) feature for nginx.
+
+Copy these files from the /usr/share/nginx/modsecurity to the destination:
+
+cp /usr/share/nginx/modsecurity/default-modsecurity.conf /etc/nginx/sites-available/
+cp /usr/share/nginx/modsecurity/modsecurity.conf /etc/nginx/
+cp /usr/share/nginx/modsecurity/modsecurity_includes.conf /etc/nginx/
+cp /usr/share/nginx/modsecurity/unicode.mapping /etc/nginx
+
+Normally, the libnginx-mod-http-security package configuration step makes it,
+except 'default' site config - there will be there with another name:
+default-modsecurity. You should replace it by hand, or make the modifications
+based on that file.
+
+To activate the module, find the line with word "modsecurity" in file
+/etc/nginx/sites-available/default, and remove the comment:
+
+    # Enable ModSecurity WAF, if need
+    modsecurity on;
+
+To load the OWASP's Core Rule Set (from package modsecurity-crs), find
+the line with "modsecurity_rules_file", and remove the comment:
+
+    # Load ModSecurity CRS, if need
+    modsecurity_rules_file /etc/nginx/modsecurity_includes.conf;
+
+This file contains a commented line:
+#include /usr/share/modsecurity-crs/owasp-crs.load
+
+If you want to use OWASP CoreRuleSet rules, you have to install the
+modsecurity-crs package:
+
+sudo apt install modsecurity-crs.
+
+After the installation, please REPLACE the "IncludeOptional" directives
+by "Include", because ModSecurity will fail - it does not support this.
+
+Now you can remove the comment from the beginning of that line.
+
+Restart nginx - now your nginx instance is ready.
+
+Log in to your system, and start to read the log file with tail command
+as root:
+
+sudo tail -f /var/log/nginx/modsec_audit.log
+
+Note, that this logfile configured in /etc/nginx/modsecurity.conf:
+
+# Use a single file for logging. This is much easier to look at, but
+# assumes that you will use the audit log only ocassionally.
+#
+SecAuditLogType Serial
+SecAuditLog /var/log/nginx/modsec_audit.log
+
+Note, that the original location is /var/log/modsec_audit.log.
+
+You can modify it if need, but please check the permissions (and your
+security modules config, eg. Apparmor or SELinux).
+
+Try to load this page:
+
+lynx "http://127.0.0.1/index.nginx-debian.html?a=%3Cscript%3Ealert(%27Foo%27);%3C/srcipt%3E"
+
+The default nginx index page showed.
+
+In the modsec_audit.log, you can see that ModSecurity catches the XSS attack,
+but only detects it, not denies. The relevant lines are these:
+
+---fXnEy53n---F--
+HTTP/1.0 200
+Server: nginx/1.22.0
+...
+
+---fXnEy53n---H--
+ModSecurity: Warning....
+ModSecurity: Warning. detected XSS using libinjection. [file "/usr/share/modsecurity-crs/rules/REQUEST-941-APPLICATION-ATTACK-XSS.conf"]
+
+The first block shows that nginx replies the HTTP 200, the seconds
+shows it detects the attack.
+
+Now if everything is right, you can turn on the engine. Find the "SecRuleEngine"
+word in /etc/nginx/modsecurity.conf. There are two lines:
+
+# Enable ModSecurity, attaching it to every transaction. Use detection
+# only to start with, because that minimises the chances of post-installation
+# disruption.
+#
+SecRuleEngine DetectionOnly
+#SecRuleEngine On
+
+Remove the comment from the second place, put one to the first, and restart
+your nginx. Then load the index page again:
+
+lynx "http://127.0.0.1/index.nginx-debian.html?a=%3Cscript%3Ealert(%27Foo%27);%3C/srcipt%3E"
+
+Now you got an HTTP 403 error, and in modsec_audit.log:
+
+---HsR8PRsN---F--
+HTTP/1.0 403
+Server: nginx/1.22.0
+...
+
+---HsR8PRsN---H--
+ModSecurity: Warning....
+ModSecurity: Warning. detected XSS using libinjection....
+
+If you want to see the reports in Nginx's error.log, you have to add a level
+to your error.log:
+
+    error_log /var/log/nginx/error.log info;
+
+Now your set up is complete.
+
+For more information, check the ModSecurity sites:
+
+https://github.com/SpiderLabs/ModSecurity-nginx
+https://github.com/SpiderLabs/ModSecurity
+https://github.com/SpiderLabs/ModSecurity/wiki
+https://github.com/SpiderLabs/ModSecurity/wiki/Reference-Manual-%28v2.x%29#OWASP_ModSecurity_Core_Rule_Set_CRS_Project
+
+
+Regards,
+Ervin
+

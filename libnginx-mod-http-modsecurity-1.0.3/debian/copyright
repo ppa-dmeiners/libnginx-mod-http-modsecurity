@@ -1,0 +1,21 @@
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: ModSecurity-nginx
+Upstream-Contact: Ervin Hegedus <airween@gmail.com>
+Source: https://github.com/SpiderLabs/ModSecurity-nginx
+
+Files: *
+Copyright: 2015-2022 Trustwave Holdings, Inc. (http://www.trustwave.com/)
+           2015-2021 Felipe Zimmerle <felipe@zimmerle.org>
+           2015-2022 Andrei Belov <defanator@gmail.com>
+License: Apache
+
+Files: debian/*
+Copyright: 2022 Ervin Hegedus <airween@gmail.com>
+License: Apache
+
+Files: debian/modsecurity_config_files/*
+Copyright: 2015-2022 Trustwave Holdings, Inc. (http://www.trustwave.com/)
+License: Apache
+
+License: Apache
+ /usr/share/common-licenses

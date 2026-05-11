@@ -1,0 +1,66 @@
+libnginx-mod-http-modsecurity (1:1.0.3-2+ubuntu24.04.1+deb.meiners.net+1.28.3) noble; urgency=medium
+
+  * Backport to noble from resolute
+
+ -- David Meiners <david@meiners.net>  Thu, 07 May 2026 16:45:54 +0000
+
+libnginx-mod-http-modsecurity (1.0.3-2build6) resolute; urgency=medium
+
+  * Rebuild against new nginx-abi-1.28.3-1.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 08 Apr 2026 10:11:15 +0000
+
+libnginx-mod-http-modsecurity (1.0.3-2build5) resolute; urgency=medium
+
+  * Rebuild against new nginx-abi-1.28.2.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 17 Feb 2026 22:02:38 +0100
+
+libnginx-mod-http-modsecurity (1.0.3-2build4) resolute; urgency=medium
+
+  * Rebuild against new nginx 1.28.1.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Mon, 29 Dec 2025 14:15:48 +0100
+
+libnginx-mod-http-modsecurity (1.0.3-2build3) questing; urgency=medium
+
+  * Rebuild against new nginx 1.28.0..
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Fri, 29 Aug 2025 00:04:41 +0200
+
+libnginx-mod-http-modsecurity (1.0.3-2build2) plucky; urgency=medium
+
+  * Rebuild against new nginx 1.26.3.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Tue, 11 Feb 2025 20:17:34 +0100
+
+libnginx-mod-http-modsecurity (1.0.3-2build1) oracular; urgency=medium
+
+  * Rebuild against new nginx 1.26.0-1ubuntu1.
+
+ -- Gianfranco Costamagna <locutusofborg@debian.org>  Wed, 05 Jun 2024 15:40:15 +0200
+
+libnginx-mod-http-modsecurity (1.0.3-2) unstable; urgency=medium
+
+  [ Ervin Hegedüs ]
+  * Renamed debian/README.ModSecurity.txt to debian/README.Debian
+  * Replaced new file in debian/libnginx-mod-http-modsecurity.docs
+  * Fixed bug identifier format in d/changelog (added a '#')
+  * Changed 'UNRELEASED' to 'unstable' in top of d/changelog entry
+  * Changed 'Maintainer' field to airween@gmail.com
+  * Changed 'Uploader' field to agi@inittab.org
+  * Changed 'Vcs-Git' and 'Vcs-Browser' fields content to team repository
+  * Added d/patches/stdioh.patch (Closes: #1067364, #1068207)
+
+  [ Jérémy Lal ]
+  * nginx_mod autodetects libnginx-mod-http-ndk-dev
+  * Use dh-sequence-nginx
+  * Let dh-nginx test run
+
+ -- Jérémy Lal <kapouer@melix.org>  Tue, 08 Aug 2023 10:50:55 +0200
+
+libnginx-mod-http-modsecurity (1.0.3-1) unstable; urgency=medium
+
+  * Initial release. (Closes: #1012495)
+
+ -- Ervin Hegedus <airween@gmail.com>  Mon, 19 Sep 2022 18:14:29 +0200
