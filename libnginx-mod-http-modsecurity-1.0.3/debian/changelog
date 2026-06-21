@@ -1,4 +1,4 @@
-libnginx-mod-http-modsecurity (1:1.0.3-2+ubuntu24.04.1+deb.meiners.net+1.30.2) noble; urgency=medium
+libnginx-mod-http-modsecurity (1:1.0.3-2+ubuntu26.04.1+deb.meiners.net+1.30.2) resolute; urgency=medium
 
   * New upstream version 1.30.2
 
